@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.visit;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -27,6 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Dave Syer
  * @author Maciej Walkowiak
  */
+@Table
 public class Visit {
 
 	@Id

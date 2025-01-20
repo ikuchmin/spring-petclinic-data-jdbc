@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  * Can be Cat, Dog, Hamster...
@@ -23,5 +24,6 @@ import org.springframework.data.annotation.Id;
  * @author Juergen Hoeller
  * @author Maciej Walkowiak
  */
+@Table
 public record PetType(@Id Long id, String name) {
 }

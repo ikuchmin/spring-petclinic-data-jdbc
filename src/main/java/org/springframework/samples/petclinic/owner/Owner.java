@@ -18,6 +18,11 @@ package org.springframework.samples.petclinic.owner;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.List;
+
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -28,6 +33,7 @@ import org.springframework.data.annotation.Id;
  * @author Michael Isvy
  * @author Maciej Walkowiak
  */
+@Table
 public class Owner {
 
 	@Id
@@ -48,6 +54,9 @@ public class Owner {
 	@NotEmpty
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
+
+    @MappedCollection
+    private List<Pet> pets;
 
 	public Integer getId() {
 		return id;

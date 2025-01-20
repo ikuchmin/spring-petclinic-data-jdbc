@@ -17,12 +17,16 @@ package org.springframework.samples.petclinic.vet;
 
 import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -33,6 +37,7 @@ import org.springframework.data.annotation.Id;
  * @author Arjen Poutsma
  * @author Maciej Walkowiak
  */
+@Table
 public class Vet implements Serializable {
 
 	@Id
@@ -44,9 +49,21 @@ public class Vet implements Serializable {
 	@NotEmpty
 	private String lastName;
 
+    @Column("salary")
+    private BigDecimal salary;
+
+    @MappedCollection
 	private Set<SpecialtyRef> specialties;
 
-	protected Set<SpecialtyRef> getSpecialtiesInternal() {
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    protected Set<SpecialtyRef> getSpecialtiesInternal() {
 		if (this.specialties == null) {
 			this.specialties = new HashSet<>();
 		}

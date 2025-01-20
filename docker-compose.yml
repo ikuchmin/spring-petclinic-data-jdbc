@@ -1,5 +1,3 @@
-version: "2.2"
-
 services:
   mysql:
     image: mysql:8.0
@@ -10,3 +8,26 @@ services:
       - MYSQL_DATABASE=petclinic
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
+    profiles:
+      - mysql
+  postgres:
+    image: postgres:17.2
+    restart: "no"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: petclinic
+      POSTGRES_PASSWORD: petclinic
+      POSTGRES_DB: petclinic
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    profiles:
+      - postgres
+volumes:
+  postgres_data:

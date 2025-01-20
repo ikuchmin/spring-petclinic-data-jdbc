@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+
+    <changeSet id="1737384448984-1" author="ikuchmin">
+        <createTable tableName="owner">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_owner"/>
+            </column>
+            <column name="first_name" type="VARCHAR"/>
+            <column name="last_name" type="VARCHAR"/>
+            <column name="address" type="VARCHAR"/>
+            <column name="city" type="VARCHAR"/>
+            <column name="telephone" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1737384467992-1" author="ikuchmin">
+        <createTable tableName="pet_type">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_pet_type"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1737384291169-1" author="ikuchmin">
+        <createTable tableName="pet">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_pet"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+            <column name="birth_date" type="DATE"/>
+            <column name="type_id" type="INT"/>
+            <column name="owner_id" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="pet" constraintName="fk_pet_on_owner"
+                                 referencedColumnNames="id" referencedTableName="owner"/>
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="pet" constraintName="fk_pet_on_type"
+                                 referencedColumnNames="id" referencedTableName="pet_type"/>
+    </changeSet>
+</databaseChangeLog>

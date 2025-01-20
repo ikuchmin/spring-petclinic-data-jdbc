@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -28,6 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Sam Brannen
  * @author Maciej Walkowiak
  */
+@Table
 public class Pet {
 
 	@Id

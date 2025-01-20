@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="1737385545711-1" author="ikuchmin">
+        <createTable tableName="vet">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_vet"/>
+            </column>
+            <column name="first_name" type="VARCHAR"/>
+            <column name="last_name" type="VARCHAR"/>
+            <column name="salary" type="DECIMAL"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737385584584-1" author="ikuchmin">
+        <createTable tableName="specialty">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_specialty"/>
+            </column>
+            <column name="name" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737385628172-1" author="ikuchmin">
+        <createTable tableName="vet_specialty">
+            <column name="specialty" type="BIGINT"/>
+            <column name="vet" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="vet" baseTableName="vet_specialty"
+                                 constraintName="fk_vet_specialty_on_vet" referencedColumnNames="id"
+                                 referencedTableName="vet"/>
+    </changeSet>
+
+</databaseChangeLog>
