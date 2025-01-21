@@ -32,6 +32,8 @@ class PetRepositoryTest {
     @Test
     void batchTest() {
 
+        long startCount = crudPetRepository.count();
+
         long start = System.currentTimeMillis();
 
         List<Pet> pets = IntStream.range(1, endExclusive)
@@ -40,10 +42,14 @@ class PetRepositoryTest {
         crudPetRepository.saveAll(pets);
 
         log.info("batch insert in data: {}", System.currentTimeMillis() - start);
+
+        assertEquals(startCount + (endExclusive - 1), crudPetRepository.count());
     }
 
     @Test
     void jdbcTemplateBatch() {
+
+        long startCount = crudPetRepository.count();
 
         long start = System.currentTimeMillis();
 
@@ -54,5 +60,7 @@ class PetRepositoryTest {
         jdbcTemplate.batchUpdate(petSql);
 
         log.info("batch insert in template: {}", System.currentTimeMillis() - start);
+
+        assertEquals(startCount + (endExclusive - 1), crudPetRepository.count());
     }
 }
