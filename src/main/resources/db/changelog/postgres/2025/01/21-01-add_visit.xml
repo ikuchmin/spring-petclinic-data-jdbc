@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+    <changeSet id="1737482326017-1" author="ikuchmin">
+        <createTable tableName="visit">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_visit"/>
+            </column>
+            <column name="date" type="DATE"/>
+            <column name="description" type="VARCHAR"/>
+            <column name="pet_id" type="INT"/>
+            <column name="pet" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="pet" baseTableName="visit" constraintName="fk_visit_on_pet"
+                                 referencedColumnNames="id" referencedTableName="pet" deferrable="true" initiallyDeferred="true"/>
+    </changeSet>
+</databaseChangeLog>

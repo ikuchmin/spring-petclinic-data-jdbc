@@ -37,8 +37,10 @@
             <column name="birth_date" type="DATE"/>
             <column name="type_id" type="INT"/>
             <column name="owner_id" type="INT"/>
+            <column name="owner_key" type="INT"/>
+            <column name="owner" type="INT"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="pet" constraintName="fk_pet_on_owner"
+        <addForeignKeyConstraint baseColumnNames="owner" baseTableName="pet" constraintName="fk_pet_on_owner"
                                  referencedColumnNames="id" referencedTableName="owner"/>
         <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="pet" constraintName="fk_pet_on_type"
                                  referencedColumnNames="id" referencedTableName="pet_type"/>

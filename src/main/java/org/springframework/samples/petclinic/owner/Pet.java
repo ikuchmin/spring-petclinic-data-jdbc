@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.owner;
 
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,7 +43,7 @@ public class Pet {
 	private LocalDate birthDate;
 
 	@Column("type_id")
-	private Integer type;
+	private AggregateReference<PetType, Long> type;
 
 	@Column("owner_id")
 	private Integer owner;
@@ -54,18 +56,20 @@ public class Pet {
 		return this.birthDate;
 	}
 
-	public Integer getType() {
-		return this.type;
+	public Long getType() {
+		return this.type.getId();
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setType(Long type) {
+        this.type = AggregateReference.to(type);
+
 	}
 
 	public Integer getOwner() {
 		return this.owner;
 	}
 
+    //@Transient
 	public void setOwner(Owner owner) {
 		this.owner = owner.getId();
 	}

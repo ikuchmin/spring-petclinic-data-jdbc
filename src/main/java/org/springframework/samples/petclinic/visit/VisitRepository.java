@@ -42,4 +42,8 @@ public interface VisitRepository extends Repository<Visit, Integer> {
 
 	@Query("select * from visit where pet_id = :petId")
 	List<Visit> findByPetId(@Param("petId") Integer petId);
+
+    Visit findById(Long id);
+
+
 }

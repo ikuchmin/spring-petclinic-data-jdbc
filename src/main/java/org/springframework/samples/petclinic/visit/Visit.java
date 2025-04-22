@@ -18,8 +18,11 @@ package org.springframework.samples.petclinic.visit;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.owner.Pet;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -42,7 +45,18 @@ public class Visit {
 
 	private Integer petId;
 
-	/**
+    @Column("pet")
+    private AggregateReference<Pet, Integer> pet;
+
+    public AggregateReference<Pet, Integer> getPet() {
+        return pet;
+    }
+
+    public void setPet(AggregateReference<Pet, Integer> pet) {
+        this.pet = pet;
+    }
+
+    /**
 	 * Creates a new instance of Visit for the current date
 	 */
 	public Visit() {

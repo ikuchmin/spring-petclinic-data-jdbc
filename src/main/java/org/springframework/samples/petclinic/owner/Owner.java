@@ -22,6 +22,8 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -58,7 +60,10 @@ public class Owner {
     @MappedCollection
     private List<Pet> pets;
 
-	public Integer getId() {
+    @MappedCollection(idColumn = "", keyColumn = "")
+    private List<Pet> superPets;
+
+    public Integer getId() {
 		return id;
 	}
 
@@ -110,9 +115,17 @@ public class Owner {
 		this.telephone = telephone;
 	}
 
-	@Override
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+    @Override
 	public String toString() {
 		return "Owner{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", address='"
-				+ address + '\'' + ", city='" + city + '\'' + ", telephone='" + telephone + '\'' + '}';
+				+ address + '\'' + ", city='" + city + '\'' + ", telephone='" + telephone + '\'' + ", pets=" + pets +  '}';
 	}
 }
