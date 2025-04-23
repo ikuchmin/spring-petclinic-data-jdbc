@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+    <changeSet id="1745402566974-1" author="ikuchmin">
+        <createTable tableName="payment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_payment"/>
+            </column>
+            <column name="method" type="VARCHAR"/>
+            <column name="paid_at" type="timestamp"/>
+            <column name="amount" type="DECIMAL(10,2)"/>
+            <column name="message" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1745402591474-1" author="ikuchmin">
+        <createTable tableName="order_payment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_payment"/>
+            </column>
+            <column name="payment_id" type="BIGINT"/>
+            <column name="order_" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="payment_id" baseTableName="order_payment"
+                                 constraintName="FK_ORDER_PAYMENT_ON_PAYMENT" referencedColumnNames="id"
+                                 referencedTableName="payment"/>
+        <addForeignKeyConstraint baseColumnNames="order_" baseTableName="order_payment"
+                                 constraintName="FK_ORDER_PAYMENT_ON_ORDER_" referencedColumnNames="id"
+                                 referencedTableName="order_"/>
+    </changeSet>
+
+
+</databaseChangeLog>

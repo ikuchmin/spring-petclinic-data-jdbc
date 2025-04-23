@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jdbc.repository.config.EnableJdbcAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @SpringBootApplication
+@EnableJdbcAuditing
 @EnableTransactionManagement
 public class PetClinicApplication {
 

@@ -41,7 +41,7 @@ class VisitRepositoryTest {
         Pet punsh = new Pet();
         punsh.setName("Punsh");
 
-        owner.getPets().add(punsh);
+        //owner.getPets().add(punsh);
 
         ownerRepository.save(owner);
     }

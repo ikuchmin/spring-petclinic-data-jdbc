@@ -48,47 +48,47 @@ class OwnerRepositoryTest {
         log.info("Loaded owners: {}", owners);
     }
 
-    @Test
-    @Sql(scripts = "owner_with_pet.sql")
-    void reorderingCollectionToAnalyzeWhatHappening() {
-        Owner owner = ownerRepository.findById(1);
-        //owner.getPets().sort(Comparator.comparing(Pet::getName));
+//    @Test
+//    @Sql(scripts = "owner_with_pet.sql")
+//    void reorderingCollectionToAnalyzeWhatHappening() {
+//        Owner owner = ownerRepository.findById(1);
+//        //owner.getPets().sort(Comparator.comparing(Pet::getName));
+//
+//        ownerRepository.save(owner);
+//
+//        Owner againOwner = ownerRepository.findById(1);
+//
+//        assertEquals(List.of(3, 2, 4), againOwner.getPets().stream().map(Pet::getId).toList());
+//    }
 
-        ownerRepository.save(owner);
+//    @Test
+//    @Sql(scripts = "owner_with_pet.sql")
+//    void tryToAddNewPet() {
+//        Owner owner = ownerRepository.findById(1);
+//
+//        Pet punsh = new Pet();
+//        punsh.setName("Punsh");
+//
+//        owner.getPets().add(punsh);
+//
+//        ownerRepository.save(owner);
+//        ownerRepository.save(owner);
+//
+//        Owner againOwner = ownerRepository.findById(1);
+//
+//        assertEquals(List.of(2, 3, 4, 5), againOwner.getPets().stream().map(Pet::getId).toList());
+//    }
 
-        Owner againOwner = ownerRepository.findById(1);
-
-        assertEquals(List.of(3, 2, 4), againOwner.getPets().stream().map(Pet::getId).toList());
-    }
-
-    @Test
-    @Sql(scripts = "owner_with_pet.sql")
-    void tryToAddNewPet() {
-        Owner owner = ownerRepository.findById(1);
-
-        Pet punsh = new Pet();
-        punsh.setName("Punsh");
-
-        owner.getPets().add(punsh);
-
-        ownerRepository.save(owner);
-        ownerRepository.save(owner);
-
-        Owner againOwner = ownerRepository.findById(1);
-
-        assertEquals(List.of(2, 3, 4, 5), againOwner.getPets().stream().map(Pet::getId).toList());
-    }
-
-    @Test
-    @Sql(scripts = "owner_with_pet.sql")
-    @Sql(statements = "delete from pet; delete from owner", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    void checkReadingData() {
-        Owner owner = ownerRepository.findById(1);
-
-        log.info("Loaded owner: {}", owner);
-
-        assertEquals(1, owner.getId());
-        assertEquals(2, owner.getPets().size());
-        assertEquals(Set.of(2, 3), owner.getPets().stream().map(Pet::getId).collect(Collectors.toSet()));
-    }
+//    @Test
+//    @Sql(scripts = "owner_with_pet.sql")
+//    @Sql(statements = "delete from pet; delete from owner", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+//    void checkReadingData() {
+//        Owner owner = ownerRepository.findById(1);
+//
+//        log.info("Loaded owner: {}", owner);
+//
+//        assertEquals(1, owner.getId());
+//        assertEquals(2, owner.getPets().size());
+//        assertEquals(Set.of(2, 3), owner.getPets().stream().map(Pet::getId).collect(Collectors.toSet()));
+//    }
 }

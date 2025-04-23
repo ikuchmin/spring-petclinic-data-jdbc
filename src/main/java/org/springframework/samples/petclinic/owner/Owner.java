@@ -57,9 +57,6 @@ public class Owner {
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 
-    @MappedCollection
-    private List<Pet> pets;
-
     @MappedCollection(idColumn = "", keyColumn = "")
     private List<Pet> superPets;
 
@@ -115,17 +112,9 @@ public class Owner {
 		this.telephone = telephone;
 	}
 
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
-
     @Override
 	public String toString() {
 		return "Owner{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", address='"
-				+ address + '\'' + ", city='" + city + '\'' + ", telephone='" + telephone + '\'' + ", pets=" + pets +  '}';
+				+ address + '\'' + ", city='" + city + '\'' + ", telephone='" + telephone + '\'' +  '}';
 	}
 }

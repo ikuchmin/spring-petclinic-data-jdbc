@@ -8,4 +8,8 @@
     <include file="db/changelog/postgres/2025/01/20-01-add_pet.xml"/>
     <include file="db/changelog/postgres/2025/01/20-01-add_vet.xml"/>
     <include file="db/changelog/postgres/2025/01/21-01-add_visit.xml"/>
+    <include file="db/changelog/postgres/2025.04/22-01-add_service_and_price_history.xml"/>
+    <include file="db/changelog/2025/04/22-01-add_order_and_itmes.xml"/>
+    <include file="db/changelog/2025/04/23-01-add_discount_and_ref_with_order.xml"/>
+    <include file="db/changelog/2025/04/23-01-add_payment_and_link_with_order.xml"/>
 </databaseChangeLog>

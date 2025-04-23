@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+    <changeSet id="1745320531092-1" author="ikuchmin">
+        <createTable tableName="order_">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_"/>
+            </column>
+            <column name="total_cost" type="DECIMAL(10,2)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="owner_id" type="INT"/>
+            <column name="pet_id" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="order_" constraintName="FK_ORDER__ON_OWNER"
+                                 referencedColumnNames="id" referencedTableName="owner"/>
+        <addForeignKeyConstraint baseColumnNames="pet_id" baseTableName="order_" constraintName="FK_ORDER__ON_PET"
+                                 referencedColumnNames="id" referencedTableName="pet"/>
+    </changeSet>
+
+    <changeSet id="1745320710149-1" author="ikuchmin">
+        <createTable tableName="order_item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_item"/>
+            </column>
+            <column name="service_id" type="BIGINT"/>
+            <column name="service_name" type="VARCHAR"/>
+            <column name="price" type="DECIMAL"/>
+            <column name="count" type="INT"/>
+            <column name="cost" type="DECIMAL"/>
+            <column name="order_" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="order_item"
+                                 constraintName="FK_ORDER_ITEM_ON_SERVICE" referencedColumnNames="id"
+                                 referencedTableName="service"/>
+        <addForeignKeyConstraint baseColumnNames="order_" baseTableName="order_item"
+                                 constraintName="FK_ORDER_ITEM_ON_ORDER_" referencedColumnNames="id"
+                                 referencedTableName="order_"/>
+    </changeSet>
+
+
+</databaseChangeLog>
