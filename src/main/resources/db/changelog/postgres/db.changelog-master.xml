@@ -12,4 +12,5 @@
     <include file="db/changelog/2025/04/22-01-add_order_and_itmes.xml"/>
     <include file="db/changelog/2025/04/23-01-add_discount_and_ref_with_order.xml"/>
     <include file="db/changelog/2025/04/23-01-add_payment_and_link_with_order.xml"/>
+    <include file="db/changelog/2025/04/24-01-changelog.xml"/>
 </databaseChangeLog>

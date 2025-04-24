@@ -65,4 +65,27 @@ class OrderServiceTest {
         assertEquals(500.00, orderItem.getPrice().doubleValue());
         assertEquals(500.00, orderItem.getCost().doubleValue());
     }
+
+    @Test
+    @Sql(scripts = "/org/springframework/samples/petclinic/order/discount.sql", executionPhase = BEFORE_TEST_METHOD)
+    //@Sql(scripts = "/org/springframework/samples/petclinic/order/discount_delete.sql", executionPhase = AFTER_TEST_METHOD)
+    void checkThatApplyingDiscountHasImpactOnItemCost() {
+        long orderId = 1L;
+        orderService.applyDiscount(orderId, "DISCOUNT10");
+
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        OrderItem grooming = order.getOrderItems().stream()
+            .filter(oi -> oi.getService().getId() == 1L)
+            .findAny().orElseThrow();
+
+        OrderItem petCheckup = order.getOrderItems().stream()
+            .filter(oi -> oi.getService().getId() == 2L)
+            .findAny().orElseThrow();
+
+        assertEquals(575.00 - 57.50, order.getTotalCost().doubleValue());
+        assertEquals(75.00 - 7.5, grooming.getCost().doubleValue());
+        assertEquals(7.5, grooming.getDiscountCost().doubleValue());
+        assertEquals(500.00 - 50.00, petCheckup.getCost().doubleValue());
+        assertEquals(50.00, petCheckup.getDiscountCost().doubleValue());
+    }
 }
