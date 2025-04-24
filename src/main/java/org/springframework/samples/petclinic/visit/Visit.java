@@ -22,6 +22,7 @@ import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.Pet;
 
 /**
@@ -31,7 +32,7 @@ import org.springframework.samples.petclinic.owner.Pet;
  * @author Dave Syer
  * @author Maciej Walkowiak
  */
-@Table
+@Table("visit")
 public class Visit {
 
 	@Id
@@ -45,8 +46,19 @@ public class Visit {
 
 	private Integer petId;
 
-    @Column("pet")
+    @Column("pet_id")
     private AggregateReference<Pet, Integer> pet;
+
+    @Column("owner_id")
+    private AggregateReference<Owner, Integer> owner;
+
+    public AggregateReference<Owner, Integer> getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AggregateReference<Owner, Integer> owner) {
+        this.owner = owner;
+    }
 
     public AggregateReference<Pet, Integer> getPet() {
         return pet;

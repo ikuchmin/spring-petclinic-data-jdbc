@@ -121,6 +121,10 @@
             <version>1.6.0</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -147,8 +151,8 @@
                             <additionalProperties>
                                 <encoding.source>${project.build.sourceEncoding}</encoding.source>
                                 <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
-                                <java.source>${maven.compiler.source}</java.source>
-                                <java.target>${maven.compiler.target}</java.target>
+                                <java.source>${java.version}</java.source>
+                                <java.target>${java.version}</java.target>
                             </additionalProperties>
                         </configuration>
                     </execution>

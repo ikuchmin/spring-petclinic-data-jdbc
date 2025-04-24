@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.order;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,6 +19,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @ActiveProfiles(value = "postgres")
 class OrderServiceTest {
 
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceTest.class);
     @Autowired
     private OrderService orderService;
 
@@ -68,10 +71,13 @@ class OrderServiceTest {
 
     @Test
     @Sql(scripts = "/org/springframework/samples/petclinic/order/discount.sql", executionPhase = BEFORE_TEST_METHOD)
-    //@Sql(scripts = "/org/springframework/samples/petclinic/order/discount_delete.sql", executionPhase = AFTER_TEST_METHOD)
+    @Sql(scripts = "/org/springframework/samples/petclinic/order/discount_delete.sql", executionPhase = AFTER_TEST_METHOD)
     void checkThatApplyingDiscountHasImpactOnItemCost() {
         long orderId = 1L;
+
+        log.info("Ready to apply discount");
         orderService.applyDiscount(orderId, "DISCOUNT10");
+        log.info("Discount applied");
 
         Order order = orderRepository.findById(orderId).orElseThrow();
         OrderItem grooming = order.getOrderItems().stream()
