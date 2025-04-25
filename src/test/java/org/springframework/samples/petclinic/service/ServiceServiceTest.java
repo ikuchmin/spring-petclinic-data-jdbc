@@ -33,7 +33,7 @@ class ServiceServiceTest {
     void checkThatPriceCorrectlyCalculatedForPastValue() {
         var serviceId = 1L;
         var date = LocalDateTime.now().minusDays(7);
-        ServiceDto serviceDto = serviceService.retriveServiceOnDate(serviceId, date);
+        ServiceDto serviceDto = serviceService.retrieveServiceOnDate(serviceId, date);
 
         assertEquals(50.00, serviceDto.price().doubleValue());
     }

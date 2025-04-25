@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.order;
 
+import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.samples.petclinic.discount.Discount;
 import org.springframework.samples.petclinic.discount.DiscountRepository;
 import org.springframework.samples.petclinic.service.ServiceDto;
@@ -43,7 +45,7 @@ public class OrderService {
         return orderMapper.toOrderDto(savedOrder);
     }
 
-    public OrderDto addServiceItem(Long orderId, OrderItemServiceDto orderItem) {
+    public Order addServiceItem(Long orderId, OrderItemServiceDto orderItem) {
 
         Order order = orderRepository.findById(orderId).orElseThrow();
 
@@ -53,13 +55,11 @@ public class OrderService {
         recalculateOrderItemCost(item);
         recalculateOrderCost(order);
 
-        Order savedOrder = orderRepository.save(order);
-
-        return orderMapper.toOrderDto(savedOrder);
+        return orderRepository.save(order);
     }
 
     // discount can be applied for each position or for appropriated
-    public OrderDto applyDiscount(Long orderId, String discountCode) {
+    public Order applyDiscount(Long orderId, String discountCode) {
         Order order = orderRepository.findById(orderId).orElseThrow();
         Discount discount = discountRepository.findByCode(discountCode).orElseThrow();
 
@@ -70,7 +70,7 @@ public class OrderService {
 
         recalculateOrderCost(order);
 
-        return orderMapper.toOrderDto(orderRepository.save(order));
+        return orderRepository.save(order);
     }
 
     private void recalculateOrderCost(Order order) {

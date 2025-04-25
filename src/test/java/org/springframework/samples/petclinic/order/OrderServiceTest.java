@@ -47,7 +47,7 @@ class OrderServiceTest {
         long serviceId = 2L;
 
         OrderItemServiceDto orderItemServiceDto = new OrderItemServiceDto(serviceId, 1);
-        OrderDto orderDto = orderService.addServiceItem(orderId, orderItemServiceDto);
+        var orderDto = orderService.addServiceItem(orderId, orderItemServiceDto);
 
         Order order = orderRepository.findById(orderId).orElseThrow();
 

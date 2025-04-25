@@ -19,10 +19,10 @@ public class ServiceService {
     public ServiceDto retrieveService(Long id) {
         LocalDateTime now = LocalDateTime.now();
 
-        return retriveServiceOnDate(id, now);
+        return retrieveServiceOnDate(id, now);
     }
 
-    public ServiceDto retriveServiceOnDate(Long id, LocalDateTime date) {
+    public ServiceDto retrieveServiceOnDate(Long id, LocalDateTime date) {
         var service = serviceRepository.findById(id).orElseThrow();
 
         BigDecimal currentPrice = service.getServicePriceHistories().stream()
