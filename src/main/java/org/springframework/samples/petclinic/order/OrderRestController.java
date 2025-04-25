@@ -90,6 +90,12 @@ public class OrderRestController {
             new OrderExtendedDtoLoadedContext(owner, pet, discounts, payments, services));
     }
 
+    @GetMapping("/{id}/one-query")
+    public OrderExtendedDto getOneQuery(@PathVariable Long id) {
+        return orderRepository.findOrderExtendedById(id).orElseThrow(() ->
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(id)));
+    }
+
     @GetMapping
     public PagedModel<OrderDto> getAll(Pageable pageable) {
         Page<Order> orders = orderRepository.findAll(pageable);
