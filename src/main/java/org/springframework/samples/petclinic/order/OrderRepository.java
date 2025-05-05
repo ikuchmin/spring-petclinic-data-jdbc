@@ -1,14 +1,12 @@
 package org.springframework.samples.petclinic.order;
 
 import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface OrderRepository extends ListCrudRepository<Order, Long>,
-    PagingAndSortingRepository<Order, Long> {
+    PagingAndSortingRepository<Order, Long>, CriteriaOrderRepository {
 
     @Query(value = """
             SELECT o.id AS id, o.created_date AS created_date, o.total_cost AS total_cost,

@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.samples.petclinic.discount.Discount;
@@ -14,10 +15,7 @@ import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.samples.petclinic.owner.PetRepository;
 import org.springframework.samples.petclinic.service.Service;
 import org.springframework.samples.petclinic.service.ServiceRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -101,6 +99,12 @@ public class OrderRestController {
         Page<Order> orders = orderRepository.findAll(pageable);
         Page<OrderDto> orderDtoPage = orders.map(orderMapper::toOrderDto);
         return new PagedModel<>(orderDtoPage);
+    }
+
+    @GetMapping("/filter")
+    public PagedModel<Order> findAllWithFiltering(@ModelAttribute OrderFilter orderFilter, Pageable pageable) {
+        Page<Order> orders = orderRepository.findAllWithFiltering(orderFilter.toCriteria(), pageable);
+        return new PagedModel<>(orders);
     }
 }
 
