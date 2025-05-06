@@ -18,6 +18,8 @@ import org.springframework.samples.petclinic.service.ServiceRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,6 +107,14 @@ public class OrderRestController {
     public PagedModel<Order> findAllWithFiltering(@ModelAttribute OrderFilter orderFilter, Pageable pageable) {
         Page<Order> orders = orderRepository.findAllWithFiltering(orderFilter.toCriteria(), pageable);
         return new PagedModel<>(orders);
+    }
+
+    @GetMapping("/report/analyse")
+    public List<OrderAnalyseReportDto> findDataForAnalyseReport(@RequestParam Integer minCountOfItems,
+                                                                @RequestParam BigDecimal minTotalCost,
+                                                                @RequestParam LocalDateTime minCreatedDate,
+                                                                @RequestParam LocalDateTime maxCreatedDate) {
+        return orderRepository.findDataForAnalyseReport(minCountOfItems, minTotalCost, minCreatedDate, maxCreatedDate);
     }
 }
 
