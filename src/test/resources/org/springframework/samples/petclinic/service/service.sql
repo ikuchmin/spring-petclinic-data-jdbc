@@ -1,5 +1,5 @@
 -- Insert test data into the service table
-INSERT INTO service (id, name) VALUES (1, 'Test Service');
+INSERT INTO service (id, name, status) VALUES (1, 'Test Service', 'ACTIVE');
 
 -- Insert test data into the service_price_history table
 INSERT INTO service_price_history (id, service, price, effective_from) VALUES

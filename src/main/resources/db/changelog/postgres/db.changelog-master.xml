@@ -14,4 +14,5 @@
     <include file="db/changelog/2025/04/23-01-add_payment_and_link_with_order.xml"/>
     <include file="db/changelog/2025/04/24-01-changelog.xml"/>
     <include file="db/changelog/2025/04/24-02-changelog.xml"/>
+    <include file="db/changelog/2025/05/06-01-add_required_specialities_to_service.xml"/>
 </databaseChangeLog>

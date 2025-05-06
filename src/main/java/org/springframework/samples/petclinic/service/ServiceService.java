@@ -1,12 +1,11 @@
 package org.springframework.samples.petclinic.service;
 
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.List;
 
-@Service
+@org.springframework.stereotype.Service
 public class ServiceService {
 
     private final ServiceRepository serviceRepository;
@@ -32,5 +31,11 @@ public class ServiceService {
             .orElseThrow(() -> new IllegalStateException("No valid price found for the current date"));
 
         return new ServiceDto(service.getId(), service.getName(), currentPrice);
+    }
+
+    public List<Service> inactivateService(Long specialityId) {
+        serviceRepository.updateServiceStatusBySpeciality(specialityId, ServiceStatus.INACTIVE);
+
+        return serviceRepository.findByRequiredSpecialities_SpecialtyId(specialityId);
     }
 }

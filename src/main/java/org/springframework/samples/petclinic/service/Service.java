@@ -1,13 +1,11 @@
 package org.springframework.samples.petclinic.service;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,8 +20,30 @@ public class Service {
     @NotNull
     private String name;
 
+    @Column("status")
+    private ServiceStatus status = ServiceStatus.INACTIVE;
+
+    @MappedCollection
+    private Set<ServiceSpecialityRef> requiredSpecialities = new LinkedHashSet<>();
+
     @MappedCollection
     private Set<ServicePriceHistory> servicePriceHistories = new LinkedHashSet<>();
+
+    public Set<ServiceSpecialityRef> getRequiredSpecialities() {
+        return requiredSpecialities;
+    }
+
+    public void setRequiredSpecialities(Set<ServiceSpecialityRef> requiredSpecialities) {
+        this.requiredSpecialities = requiredSpecialities;
+    }
+
+    public ServiceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ServiceStatus status) {
+        this.status = status;
+    }
 
     public Set<ServicePriceHistory> getServicePriceHistories() {
         return servicePriceHistories;

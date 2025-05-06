@@ -7,6 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
@@ -20,6 +21,9 @@ class ServiceServiceTest {
 
     @Autowired
     private ServiceService serviceService;
+
+    @Autowired
+    private ServiceRepository serviceRepository;
 
     @Test
     void checkThatPriceCorrectlyCalculatedForNowByDefault() {
@@ -38,6 +42,17 @@ class ServiceServiceTest {
         assertEquals(50.00, serviceDto.price().doubleValue());
     }
 
+    @Test
+    @Sql(scripts = "/org/springframework/samples/petclinic/service/service_with_speciality.sql", executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = "/org/springframework/samples/petclinic/service/service_with_after.sql", executionPhase = AFTER_TEST_METHOD)
+    void checkThatThereIsAbilityToInactivateServiceBySpeciality() {
+        var surgeryId = 1L;
 
+        List<Service> services = serviceService.inactivateService(surgeryId);
 
+        Service untouchable = serviceRepository.findById(1L).orElseThrow();
+
+        assertEquals(ServiceStatus.INACTIVE, services.get(0).getStatus());
+        assertEquals(ServiceStatus.ACTIVE, untouchable.getStatus());
+    }
 }
