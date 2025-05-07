@@ -20,7 +20,7 @@ public interface OrderRepository extends ListCrudRepository<Order, Long>,
                    pm.id AS payment_id, pm.method AS payment_method, pm.paid_at AS payment_paidAt, pm.amount AS payment_amount, pm.message AS payment_message,
                    oi.id AS order_item_id, oi.service_name AS order_item_service_name, oi.price AS order_item_price, oi.count AS order_item_count,
                    oi.discount_cost AS order_item_discount_cost, oi.discount_reason AS order_item_discount_reason, oi.cost AS order_item_cost,
-                   oi.discount_reason AS order_item_discount_reason, oi.cost AS order_item_cost,
+                   oi.discount_reason AS order_item_discount_reason, oi.cost AS order_item_cost, oi.order__key as order_item_order__key,
                    s.id AS service_id, s.name AS service_name
             FROM order_ o
             JOIN owner ow ON o.owner_id = ow.id

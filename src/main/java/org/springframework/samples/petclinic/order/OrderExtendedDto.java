@@ -8,13 +8,14 @@ import org.springframework.samples.petclinic.service.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 /**
  * DTO for {@link Order}
  */
 public record OrderExtendedDto(Long id, BigDecimal totalCost, LocalDateTime createdDate, OwnerDto owner, PetDto pet,
-                               Set<OrderItemDto> orderItems, Set<DiscountDto> orderDiscounts,
+                               List<OrderItemDto> orderItems, Set<DiscountDto> orderDiscounts,
                                Set<PaymentDto> orderPayments) {
     /**
      * DTO for {@link OrderItem}

@@ -42,31 +42,22 @@ class OrderServiceTest {
     @Sql(scripts = "/org/springframework/samples/petclinic/order/order_delete.sql", executionPhase = AFTER_TEST_METHOD)
     void checkThatAddingServiceRecalculateCostFields() {
         long orderId = 1L;
-        Order preOrder = orderRepository.findById(orderId).orElseThrow();
-
-        long serviceId = 2L;
+        long serviceId = 3L;
 
         OrderItemServiceDto orderItemServiceDto = new OrderItemServiceDto(serviceId, 1);
-        var orderDto = orderService.addServiceItem(orderId, orderItemServiceDto);
+        var order = orderService.addServiceItem(orderId, orderItemServiceDto);
 
-        Order order = orderRepository.findById(orderId).orElseThrow();
+        var orderItem = order.getOrderItems().getLast();
 
-        Set<OrderItem> diffItems = new HashSet<>(order.getOrderItems());
-        diffItems.removeAll(preOrder.getOrderItems());
+        assertEquals(3, order.getOrderItems().size());
+        assertEquals(600.00, order.getTotalCost().doubleValue());
 
-        assert diffItems.size() == 1;
-
-        var orderItem = diffItems.stream().findAny().orElseThrow();
-
-        assertEquals(2, order.getOrderItems().size());
-        assertEquals(575.00, order.getTotalCost().doubleValue());
-
-        assertEquals(2, orderItem.getService().getId());
+        assertEquals(3, orderItem.getService().getId());
         assertEquals(1, orderItem.getCount());
 
-        assertEquals("Pet Checkup", orderItem.getServiceName());
-        assertEquals(500.00, orderItem.getPrice().doubleValue());
-        assertEquals(500.00, orderItem.getCost().doubleValue());
+        assertEquals("Vaccination", orderItem.getServiceName());
+        assertEquals(25.00, orderItem.getPrice().doubleValue());
+        assertEquals(25.00, orderItem.getCost().doubleValue());
     }
 
     @Test

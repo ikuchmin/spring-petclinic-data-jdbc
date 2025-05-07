@@ -12,7 +12,9 @@ import org.springframework.samples.petclinic.owner.Pet;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Table("order_")
@@ -38,7 +40,7 @@ public class Order {
     private AggregateReference<Pet, Integer> pet;
 
     @MappedCollection
-    private Set<OrderItem> orderItems = new LinkedHashSet<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @MappedCollection
     private Set<OrderDiscount> orderDiscounts = new LinkedHashSet<>();
@@ -102,11 +104,11 @@ public class Order {
         this.owner = owner;
     }
 
-    public Set<OrderItem> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 

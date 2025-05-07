@@ -4,6 +4,9 @@ INSERT INTO service_price_history (id, price, effective_from, service) VALUES (1
 INSERT INTO service (id, name) VALUES (2, 'Pet Checkup');
 INSERT INTO service_price_history (id, price, effective_from, service) VALUES (2, 500.00, NOW(), 2);
 
+INSERT INTO service (id, name) VALUES (3, 'Vaccination');
+INSERT INTO service_price_history (id, price, effective_from, service) VALUES (3, 25.00, NOW(), 3);
+
 INSERT INTO pet_type (id, name) values (1, 'dog');
 
 INSERT INTO owner (id, first_name, last_name) VALUES (1, 'Ivan', 'Petrov');

@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.order;
 
+import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class OrderExtendedDtoRowMapper implements RowMapper<OrderExtendedDto> {
             );
 
             // Initialize collections
-            Map<Long, OrderExtendedDto.OrderItemDto> orderItems = new HashMap<>();
+            Map<Long, OrderItemDtoWithOrder> orderItems = new HashMap<>();
             Map<Long, OrderExtendedDto.DiscountDto> discounts = new HashMap<>();
             Map<Long, OrderExtendedDto.PaymentDto> payments = new HashMap<>();
             Map<Long, OrderExtendedDto.ServiceDto> services = new HashMap<>();
@@ -54,16 +55,18 @@ public class OrderExtendedDtoRowMapper implements RowMapper<OrderExtendedDto> {
                 if (rs.getObject("order_item_id") != null) {
                     Long itemId = rs.getLong("order_item_id");
                     if (!orderItems.containsKey(itemId)) {
-                        orderItems.put(itemId, new OrderExtendedDto.OrderItemDto(
-                            itemId,
-                            services.get(rs.getLong("service_id")),
-                            rs.getString("order_item_service_name"),
-                            rs.getBigDecimal("order_item_price"),
-                            rs.getInt("order_item_count"),
-                            rs.getBigDecimal("order_item_discount_cost"),
-                            rs.getString("order_item_discount_reason"),
-                            rs.getBigDecimal("order_item_cost")
-                        ));
+                        orderItems.put(itemId, new OrderItemDtoWithOrder(
+                            rs.getInt("order_item_order__key"),
+                            new OrderExtendedDto.OrderItemDto(
+                                itemId,
+                                services.get(rs.getLong("service_id")),
+                                rs.getString("order_item_service_name"),
+                                rs.getBigDecimal("order_item_price"),
+                                rs.getInt("order_item_count"),
+                                rs.getBigDecimal("order_item_discount_cost"),
+                                rs.getString("order_item_discount_reason"),
+                                rs.getBigDecimal("order_item_cost")
+                            )));
                     }
                 }
 
@@ -96,15 +99,23 @@ public class OrderExtendedDtoRowMapper implements RowMapper<OrderExtendedDto> {
 
             rs.next();
 
+            List<OrderExtendedDto.OrderItemDto> sortedOrderItems = orderItems.values().stream()
+                .sorted(Comparator.comparingInt(OrderItemDtoWithOrder::orderKey))
+                .map(OrderItemDtoWithOrder::orderItem)
+                .toList();
+
             // Create and return the OrderExtendedDto
             return new OrderExtendedDto(id, totalCost, createdDate,
                 owner, pet,
-                new HashSet<>(orderItems.values()),
+                sortedOrderItems,
                 new HashSet<>(discounts.values()),
                 new HashSet<>(payments.values()));
         }
 
         // For subsequent rows, we'll never get here because we've consumed the entire result set
         return null;
+    }
+
+    record OrderItemDtoWithOrder(Integer orderKey, OrderExtendedDto.OrderItemDto orderItem) {
     }
 }

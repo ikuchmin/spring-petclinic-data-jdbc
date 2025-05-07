@@ -6,5 +6,5 @@ delete from owner where id in (1);
 
 delete from pet_type where id in (1);
 
-delete from service_price_history where service in (1, 2);
-delete from service where id in (1, 2);
+delete from service_price_history where service in (1, 2, 3);
+delete from service where id in (1, 2, 3);

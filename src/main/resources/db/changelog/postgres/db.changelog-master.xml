@@ -15,4 +15,5 @@
     <include file="db/changelog/2025/04/24-01-changelog.xml"/>
     <include file="db/changelog/2025/04/24-02-changelog.xml"/>
     <include file="db/changelog/2025/05/06-01-add_required_specialities_to_service.xml"/>
+    <include file="db/changelog/2025/05/06-01-migrate_from_set_to_list_in_order.xml"/>
 </databaseChangeLog>

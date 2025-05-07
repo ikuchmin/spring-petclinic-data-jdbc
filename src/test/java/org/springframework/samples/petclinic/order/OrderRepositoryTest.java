@@ -35,4 +35,13 @@ class OrderRepositoryTest {
         assertEquals(575.00, data.getFirst().totalCost().doubleValue());
     }
 
+    @Test
+    @Sql(scripts = "/org/springframework/samples/petclinic/order/order_analyse_report.sql", executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = "/org/springframework/samples/petclinic/order/order_analyse_report_delete.sql", executionPhase = AFTER_TEST_METHOD)
+    void checkThatExtendedQueryReturnsItemsInAppropriateOrder() {
+        OrderExtendedDto orderExtendedDto = orderRepository.findOrderExtendedById(1L).orElseThrow();
+
+        assertEquals(List.of(2L, 1L), orderExtendedDto.orderItems().stream().map(OrderExtendedDto.OrderItemDto::id).toList());
+    }
+
 }
