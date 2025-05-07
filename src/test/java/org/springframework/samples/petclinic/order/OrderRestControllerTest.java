@@ -36,7 +36,7 @@ public class OrderRestControllerTest {
     }
 
     @Test
-    public void findAllWithFiltering() throws Exception {
+    public void getAllWithFiltering() throws Exception {
         mockMvc.perform(get("/rest/orders/filter")
                 .param("totalCostGt", "12.50"))
             .andExpect(status().isOk())
@@ -54,7 +54,7 @@ public class OrderRestControllerTest {
     }
 
     @Test
-    public void findAllWithFilteringByOwnerId() throws Exception {
+    public void getAllWithFilteringByOwnerId() throws Exception {
         mockMvc.perform(get("/rest/orders/filter")
                 .param("ownerIdsIn", "1,2"))
             .andExpect(status().isOk())

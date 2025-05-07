@@ -1,9 +1,6 @@
 package org.springframework.samples.petclinic.order;
 
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.samples.petclinic.discount.Discount;
 import org.springframework.samples.petclinic.owner.Owner;
@@ -39,7 +36,7 @@ public interface OrderMapper {
     default OrderExtendedDto.OwnerDto toOrderExtendedDto_OwnerDto(AggregateReference<Owner, Integer> ownerId,
                                                                   @Context OrderExtendedDtoLoadedContext context) {
         Owner owner = context.owner;
-        if (! ownerId.getId().equals(owner.getId())) {
+        if (!ownerId.getId().equals(owner.getId())) {
             throw new IllegalStateException("Owner ID mismatch: expected " + ownerId.getId() + " but got " + owner.getId());
         }
 
@@ -51,7 +48,7 @@ public interface OrderMapper {
     default OrderExtendedDto.PetDto toOrderExtendedDto_PetDto(AggregateReference<Pet, Integer> petId,
                                                               @Context OrderExtendedDtoLoadedContext context) {
         Pet pet = context.pet;
-        if (! petId.getId().equals(pet.getId())) {
+        if (!petId.getId().equals(pet.getId())) {
             throw new IllegalStateException("Pet ID mismatch: expected " + petId.getId() + " but got " + pet.getId());
         }
 
@@ -92,6 +89,14 @@ public interface OrderMapper {
     }
 
     OrderExtendedDto.ServiceDto toOrderExtendedDto_ServiceDto(Service service);
+
+    Order toEntity(OrderDto orderDto);
+
+    Order toEntity(OrderCreateDto orderCreateDto);
+
+    OrderCreateDto toOrderCreateDto(Order order);
+
+    Order updateWithNull(OrderCreateDto orderCreateDto, @MappingTarget Order order);
 
     record OrderExtendedDtoLoadedContext(Owner owner,
                                          Pet pet,
