@@ -7,6 +7,12 @@
 
 
     <changeSet id="1747212147541-1" author="ikuchmin">
+        <createTable tableName="service">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+        </createTable>
         <createTable tableName="service_price_history">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service_price_history"/>
@@ -18,11 +24,5 @@
         <addForeignKeyConstraint baseColumnNames="service" baseTableName="service_price_history"
                                  constraintName="FK_SERVICE_PRICE_HISTORY_ON_SERVICE" referencedColumnNames="id"
                                  referencedTableName="service"/>
-        <createTable tableName="service">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service"/>
-            </column>
-            <column name="name" type="VARCHAR"/>
-        </createTable>
     </changeSet>
 </databaseChangeLog>
