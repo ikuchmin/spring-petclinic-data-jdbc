@@ -10,4 +10,5 @@
     <include file="db/changelog/postgres/2025.05/14-01-add_service.xml"/>
     <include file="db/changelog/postgres/2025.05/14-01-add_visit.xml"/>
     <include file="db/changelog/postgres/2025.05/14-01-changelog.xml"/>
+    <include file="db/changelog/postgres/2025.05/14-02-add_order_number_to_order.xml"/>
 </databaseChangeLog>

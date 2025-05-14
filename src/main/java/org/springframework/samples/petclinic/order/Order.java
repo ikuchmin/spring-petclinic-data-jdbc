@@ -23,6 +23,9 @@ public class Order {
     @Column("id")
     private Long id;
 
+    @Column("number")
+    private String number;
+
     @Column("owner_id")
     private AggregateReference<Owner, Integer> owner;
 
@@ -40,6 +43,14 @@ public class Order {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
