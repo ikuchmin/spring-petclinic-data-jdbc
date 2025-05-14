@@ -6,5 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <include file="db/changelog/postgres/2025/01/20-01-add_pet.xml"/>
-    <include file="db/changelog/postgres/20-01-add_vet.xml"/>
+    <include file="db/changelog/postgres/2025/01/20-01-add_vet.xml"/>
+    <include file="db/changelog/postgres/2025.05/14-01-add_service.xml"/>
 </databaseChangeLog>
