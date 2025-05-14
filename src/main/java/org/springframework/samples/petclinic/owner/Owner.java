@@ -55,9 +55,6 @@ public class Owner {
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 
-    @MappedCollection
-    private List<Pet> pets;
-
 	public Integer getId() {
 		return id;
 	}

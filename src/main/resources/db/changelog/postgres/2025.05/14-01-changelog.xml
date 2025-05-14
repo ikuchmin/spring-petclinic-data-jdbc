@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+    objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747213529594-1" author="ikuchmin (generated)">
+        <createTable tableName="order_">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_"/>
+            </column>
+            <column name="owner_id" type="INT"/>
+            <column name="total_cost" type="DECIMAL"/>
+            <column name="created_date" type="DATETIME"/>
+            <column name="last_modified_date" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747213529594-2" author="ikuchmin (generated)">
+        <createTable tableName="order_item">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_item"/>
+            </column>
+            <column name="service_id" type="BIGINT"/>
+            <column name="quantity" type="INT"/>
+            <column name="service_name" type="VARCHAR"/>
+            <column name="price" type="DECIMAL"/>
+            <column name="cost" type="DECIMAL"/>
+            <column name="order_" type="BIGINT"/>
+            <column name="order__key" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747213529594-3" author="ikuchmin (generated)">
+        <createTable tableName="order_payment_ref">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_payment_ref"/>
+            </column>
+            <column name="payment_id" type="BIGINT"/>
+            <column name="order_" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747213529594-4" author="ikuchmin (generated)">
+        <createTable tableName="payment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_payment"/>
+            </column>
+            <column name="method" type="VARCHAR"/>
+            <column name="paid_at" type="DATETIME"/>
+            <column name="amount" type="DECIMAL"/>
+            <column name="message" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747213529594-5" author="ikuchmin (generated)">
+        <addForeignKeyConstraint baseColumnNames="order_" baseTableName="order_item"
+                                 constraintName="FK_ORDER_ITEM_ON_ORDER_" referencedColumnNames="id"
+                                 referencedTableName="order_"/>
+
+        <createIndex indexName="IDX_ORDER_ITEM_ON_ORDER_" tableName="order_item">
+            <column name="order_"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1747213529594-6" author="ikuchmin (generated)">
+        <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="order_item"
+                                 constraintName="FK_ORDER_ITEM_ON_SERVICE" referencedColumnNames="id"
+                                 referencedTableName="service"/>
+
+        <createIndex indexName="IDX_ORDER_ITEM_ON_SERVICE" tableName="order_item">
+            <column name="service_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1747213529594-7" author="ikuchmin (generated)">
+        <addForeignKeyConstraint baseColumnNames="order_" baseTableName="order_payment_ref"
+                                 constraintName="FK_ORDER_PAYMENT_REF_ON_ORDER_" referencedColumnNames="id"
+                                 referencedTableName="order_"/>
+
+        <createIndex indexName="IDX_ORDER_PAYMENT_REF_ON_ORDER_" tableName="order_payment_ref">
+            <column name="order_"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1747213529594-8" author="ikuchmin (generated)">
+        <addForeignKeyConstraint baseColumnNames="payment_id" baseTableName="order_payment_ref"
+                                 constraintName="FK_ORDER_PAYMENT_REF_ON_PAYMENT" referencedColumnNames="id"
+                                 referencedTableName="payment"/>
+
+        <createIndex indexName="IDX_ORDER_PAYMENT_REF_ON_PAYMENT" tableName="order_payment_ref">
+            <column name="payment_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1747213529594-9" author="ikuchmin (generated)">
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="order_" constraintName="FK_ORDER__ON_OWNER"
+                                 referencedColumnNames="id" referencedTableName="owner"/>
+
+        <createIndex indexName="IDX_ORDER__ON_OWNER" tableName="order_">
+            <column name="owner_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
