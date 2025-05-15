@@ -33,6 +33,9 @@ public class Order {
     private Set<OrderPaymentRef> orderPaymentRefs = new LinkedHashSet<>();
 
     @MappedCollection
+    private Set<OrderDiscountRef> orderDiscountRefs = new LinkedHashSet<>();
+
+    @MappedCollection
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column("total_cost")
@@ -43,6 +46,14 @@ public class Order {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
+    public Set<OrderDiscountRef> getOrderDiscountRefs() {
+        return orderDiscountRefs;
+    }
+
+    public void setOrderDiscountRefs(Set<OrderDiscountRef> orderDiscountRefs) {
+        this.orderDiscountRefs = orderDiscountRefs;
+    }
 
     public String getNumber() {
         return number;

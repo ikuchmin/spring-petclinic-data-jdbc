@@ -30,6 +30,12 @@ public class OrderItem {
     @Column("cost")
     private BigDecimal cost;
 
+    @Column("discount_cost")
+    private BigDecimal discountCost;
+
+    @Column("discount_reason")
+    private String discountReason;
+
     public Integer getQuantity() {
         return quantity;
     }
