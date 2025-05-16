@@ -12,6 +12,8 @@ import org.springframework.samples.petclinic.payment.PaymentRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -145,6 +147,14 @@ public class OrderRestController {
 
         return orderMapper.toOrderExtendedDto(savedOrder,
             new OrderMapper.OrderGetOneExtendedDtoMappingContext(payments, discounts));
+    }
+
+    @GetMapping("/report/analyse")
+    public List<OrderAnalyseReportDto> findDataForAnalyseReport(@RequestParam Integer minCountOfItems,
+                                                                @RequestParam BigDecimal minTotalCost,
+                                                                @RequestParam LocalDateTime minCreatedDate,
+                                                                @RequestParam LocalDateTime maxCreatedDate) {
+        return orderRepository.findDataForAnalyseReport(minCountOfItems, minTotalCost, minCreatedDate, maxCreatedDate);
     }
 }
 

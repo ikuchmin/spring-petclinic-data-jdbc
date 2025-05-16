@@ -26,6 +26,9 @@ public class Order {
     @Column("number")
     private String number;
 
+    @Column("status")
+    private OrderStatus status = OrderStatus.PENDING;
+
     @Column("owner_id")
     private AggregateReference<Owner, Integer> owner;
 
@@ -118,5 +121,13 @@ public class Order {
 
     public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }
